@@ -17,11 +17,13 @@ namespace JumpingPlatformGame
 		private List<Label> entityLabels = new List<Label>();
 		private Random random = new Random();
         ModelStore model = ModelStore.LoadFrom(new StreamReader("NezarkaSummer.in"));
+		List<Customer> customers;
 
 		public MainForm()
 		{
 			InitializeComponent();
-            customer_listBox.DataSource = model.GetCustomers();
+			customers = (List<Customer>) model.GetCustomers();
+			customer_listBox.DataSource = customers;
 		}
 
 		private void RegisterEntity(Entity entity)
@@ -40,6 +42,8 @@ namespace JumpingPlatformGame
 			label.Height = LabelHeight;
 			label.BackColor = entity.Color;
 			label.SetLocation(entity, worldPanel.Height);
+			label.Text = entity.name.Substring(0,entity.name.IndexOf(" "));
+			
 			entityLabels.Add(label);
 			worldPanel.Controls.Add(label);
 
@@ -89,7 +93,7 @@ namespace JumpingPlatformGame
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RegisterEntity(new CustomerEntity(customer_listBox.SelectedItem));
+            RegisterEntity(new CustomerEntity(customers[customer_listBox.SelectedIndex]));
         }
 	}
 

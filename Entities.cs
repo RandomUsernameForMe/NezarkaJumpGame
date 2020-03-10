@@ -7,6 +7,7 @@ namespace JumpingPlatformGame
 
     class Entity
     {
+        public string name;
         public virtual Color Color => Color.Black;
         public WorldPoint Location;
 
@@ -46,24 +47,25 @@ namespace JumpingPlatformGame
 
     class CustomerEntity : MovableEntity
     {
-        int years;
-        string name;
+        int? years;
         public override Color Color
         {
             get
             {
                 switch (years)
                 {
-                    case 0:
-                        return Color.Red;
-                    case 1:
-                        return Color.Yellow;
-                    case 2:
-                        return Color.Green;
-                    case 3:
-                        return Color.Blue;
-                    default:
+                    case null:
                         return Color.Gold;
+                    case 0:
+                        return Color.Black;
+                    case 1:
+                        return Color.DarkRed;
+                    case 2:
+                        return Color.Red;
+                    case 3:
+                        return Color.IndianRed;
+                    default:
+                        return Color.OrangeRed;     
 
                 }
             }
@@ -71,14 +73,16 @@ namespace JumpingPlatformGame
 
         public CustomerEntity(Customer other)
         {
-            name = other.ToString();
-            if (other.DateJoined == null)
-            {
-                years = 4;
-                return;
-            }
-            TimeSpan? timespan = DateTime.Now - other.DateJoined;
-            years = (int)(timespan.Value.TotalDays) / 365;
+            name = other.ToString(); 
+            
+                if (other.DateJoined == null)
+                {
+                    years = null;
+                    return;
+                }
+                TimeSpan? timespan = DateTime.Now - other.DateJoined;
+                years = (int)(timespan.Value.TotalDays) / 365;
+            
         }
 
     }
