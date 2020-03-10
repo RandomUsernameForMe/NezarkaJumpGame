@@ -6,13 +6,17 @@ using System.IO;
 
 namespace NezarkaBookstoreWeb {
 
-	class ModelStore {
-		private List<Book> books = new List<Book>();
-		private List<Customer> customers = new List<Customer>();
+    class ModelStore {
+        private List<Book> books = new List<Book>();
+        private List<Customer> customers = new List<Customer>();
 
-		public IList<Book> GetBooks() {
-			return books;
-		}
+        public IList<Book> GetBooks() {
+            return books;
+        }
+
+        public IList<Customer> GetCustomers() {
+            return customers;
+        }
 
 		public Book GetBook(int id) {
 			return books.Find(b => b.Id == id);

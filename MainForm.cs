@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NezarkaBookstoreWeb;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace JumpingPlatformGame
@@ -14,10 +16,12 @@ namespace JumpingPlatformGame
 		private List<Entity> entities = new List<Entity>();
 		private List<Label> entityLabels = new List<Label>();
 		private Random random = new Random();
+        ModelStore model = ModelStore.LoadFrom(new StreamReader("NezarkaSummer.in"));
 
 		public MainForm()
 		{
 			InitializeComponent();
+            customer_listBox.DataSource = model.GetCustomers();
 		}
 
 		private void RegisterEntity(Entity entity)
@@ -83,7 +87,10 @@ namespace JumpingPlatformGame
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e) => RegisterEntity(new CustomerEntity());
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RegisterEntity(new CustomerEntity(customer_listBox.SelectedItem));
+        }
 	}
 
 	static class ControlExtensions
